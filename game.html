@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Squares Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* هنا تم تعديل الخلفية إلى اللون الأسود */
+            position: relative;
+        }
+        #gameContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* الخلفية السوداء للعبة */
+        }
+        .square {
+            position: absolute;
+            cursor: pointer;
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjK4k9_s6tjhHWSDwTv4snvarFpTUqHMHihUAoXWInFanSJtNpZFRfBL3w9spKkBGl--bhtBLz32kLW1qMH0DN6NVJ5Uh8i2awiZvJ-qfhHc1GD1q1xIXCBnJDq5hpvvo25Bz0d5KvWL56I-qVL6mEhCfGbtOLOLX9zRMws4scQcJQX2R56LARMUOvE0Uc/s640/IMG_20240926_180332.png');
+            background-size: cover;
+            border-radius: 5px;
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 24px;
+        }
+        #timer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 24px;
+        }
+        #gameOver {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <div id="score">Score: 0</div>
+    <div id="timer">Time: 30</div>
+    <div id="gameOver">Game End</div>
+</div>
+
+<script>
+    const gameContainer = document.getElementById('gameContainer');
+    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const gameOverDisplay = document.getElementById('gameOver');
+    let score = 0;
+    let timeLeft = 30;
+    let gameInterval;
+
+    function createSquare() {
+        const square = document.createElement('div');
+        const size = Math.random() < 0.5 ? 50 : 70; // Random size (small or large)
+        square.classList.add('square');
+        square.style.width = `${size}px`;
+        square.style.height = `${size}px`;
+        square.style.left = `${Math.random() * (window.innerWidth - size)}px`;
+        square.style.top = '0px';
+        square.dataset.points = size === 30 ? 1 : 3; // Small squares give 10 points, large give 20
+
+        // Initialize rotation and fall speed
+        let rotation = 0;
+        let fallSpeed = Math.random() * 6 + 3; // زيادة سرعة السقوط (5-8)
+        
+        // تدوير المربعات أثناء سقوطها
+        const fallInterval = setInterval(() => {
+            const currentTop = parseInt(square.style.top);
+            if (currentTop < window.innerHeight - size) {
+                // حركة السقوط
+                square.style.top = `${currentTop + fallSpeed}px`;
+                
+                // حركة التدوير
+                rotation += 3; // Increase rotation angle
+                square.style.transform = `rotate(${rotation}deg)`; // Apply rotation
+            } else {
+                clearInterval(fallInterval);
+                gameContainer.removeChild(square); // Remove square when it hits the bottom
+            }
+        }, 20);
+
+        // Add touch event to collect points (for multi-touch)
+        square.addEventListener('touchstart', (event) => {
+            event.preventDefault(); // Prevent default touch behavior
+            score += parseInt(square.dataset.points);
+            scoreDisplay.innerHTML = `Score: ${score}`;
+            gameContainer.removeChild(square); // Remove square after click
+        });
+
+        gameContainer.appendChild(square);
+    }
+
+    function startGame() {
+        // Create squares more frequently
+        gameInterval = setInterval(createSquare, 250); // تم تعديل الزمن إلى 200ms لإنشاء المزيد من المربعات بسرعة
+
+        // Timer countdown
+        const timerInterval = setInterval(() => {
+            timeLeft -= 1;
+            timerDisplay.innerHTML = `Time: ${timeLeft}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                clearInterval(gameInterval);
+                gameOverDisplay.style.display = 'block';
+                saveScore();
+            }
+        }, 1000);
+    }
+
+    function saveScore() {
+        // Save score to localStorage
+        let totalPoints = parseInt(localStorage.getItem('points')) || 0;
+        totalPoints += score;
+        localStorage.setItem('points', totalPoints);
+
+        // Redirect to index.html without alert
+        window.location.href = 'index.html';
+    }
+
+    window.onload = startGame;
+</script>
+
+</body>
+</html>
