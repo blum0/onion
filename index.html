@@ -3,279 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dogs</title>
+    <title>Welcome to the Game</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
-            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmx6ecFjROJ6wNTs_SKQyfZI-UZrrszjgp6QaD3J61IlUtbEpE0uHOGZz7qYwM-MfQq0MqD4WuJarVrIpiQr9udix9pab5RT9TVc6_akvZ149OF9sbtXiMFPHMrEkeIs32-1dpdV_WiOUDR6NQ78FAFAm6nhdAtVI0wCeQXIsb0MTrOHxrE9Kmh9WOIt4/s1600/IMG_20240926_182201.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            margin: 0;
+            background-color: purple;
         }
-        h1 {
-            color: #333;
-            margin-top: 20px;
-        }
-        #counter {
-            font-size: 48px;
-            color: white;
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
-        img {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-        .task-title {
-            color: #000;
+        #playButton {
+            padding: 20px 40px;
             font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            background: #ffffff;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .task {
-            margin: 15px auto;
-            padding: 10px 20px;
-            background-color: #555;
             color: white;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 60%;
-            max-width: 200px;
-            display: block;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .task:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-            background-color: #444;
-        }
-        .task:active {
-            transform: scale(0.95);
-            background-color: #333;
-        }
-        .code-input {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            font-size: 16px;
-            color: white;
-            background-color: #333;
+            background-color: green;
             border: none;
-            border-radius: 5px;
-        }
-        .submit-code {
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .submit-code:hover {
-            background-color: #218838;
-        }
-        /* زر اللعب */
-        .play-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .play-button:hover {
-            background-color: #0056b3;
-        }
-        /* عرض عدد مرات اللعب المتاحة */
-        #playsAvailable {
-            color: white;
-            font-size: 20px;
-            margin-top: 10px;
-            margin-left: 20px; /* لضبط المحاذاة مع زر اللعب */
         }
     </style>
 </head>
 <body>
 
-    <h1>Points Collection</h1>
+<button id="playButton">Play</button>
 
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjK4k9_s6tjhHWSDwTv4snvarFpTUqHMHihUAoXWInFanSJtNpZFRfBL3w9spKkBGlhyphenhyphenbhtBLz32kLW1qMH0DN6NVJ5Uh8i2awiZvJ-qfhHc1GD1q1xIXCBnJDq5hpvvo25Bz0d5KvWL56I-qVL6mEhCfGbtOLOLX9zRMws4scQcJQX2R56LARMUOvE0Uc/s640/IMG_20240926_180332.png" alt="Garlic Image">
-    
-    <div id="counter">0</div>
-
-    <div class="task-title">Available Tasks</div>
-
-    <!-- Task Buttons -->
-    <a id="task1" class="task" onclick="startTask(1000, 'https://www.youtube.com/channel/YOUR_CHANNEL_ID', 'task1')">
-        Subscribe to YouTube Channel - 1000 Coin
-    </a>
-    <a id="task2" class="task" onclick="startTask(1000, 'https://t.me/YOUR_TELEGRAM_CHANNEL', 'task2')">
-        Join Telegram Channel - 1000 Coin
-    </a>
-    <a id="task3" class="task" onclick="startTask(1500, 'https://www.example.com', 'task3')">
-        Visit Example Website - 1500 Coin
-    </a>
-    <a id="task4" class="task" onclick="startTask(1000, 'https://www.anotherexample.com', 'task4')">
-        Check Another Example - 1000 Coin
-    </a>
-
-    <!-- زر اللعب -->
-    <button class="play-button" id="playButton">Play</button>
-    <div id="playsAvailable">7/7</div> <!-- عرض عدد مرات اللعب المتاحة تحت زر "Play" -->
-
-    <!-- Input for code -->
-    <input type="text" id="codeInput" class="code-input" placeholder="Enter your code here">
-    <button class="submit-code" onclick="submitCode()">Submit Code</button>
-
-    <script>
-        // Load saved points from localStorage
-        let points = parseInt(localStorage.getItem('points')) || 0;
-        document.getElementById('counter').innerHTML = points;
-
-        // Load saved task states from localStorage
-        const savedTasks = JSON.parse(localStorage.getItem('tasksStatus')) || {};
-        const usedCodes = JSON.parse(localStorage.getItem('usedCodes')) || {}; // Track used codes
-
-        // Enable task states based on saved data
-        for (let taskId in savedTasks) {
-            if (savedTasks[taskId].completed) {
-                const taskButton = document.getElementById(taskId);
-                taskButton.classList.add('disabled');
-                taskButton.style.pointerEvents = "none";
-                taskButton.innerHTML = `Task Completed - ${savedTasks[taskId].points} Coin Added`;
-            }
-        }
-
-        // Check play limit
-        const maxPlaysPerDay = 7;
-        const lastPlayed = localStorage.getItem('lastPlayed');
-        let playsToday = parseInt(localStorage.getItem('playsToday')) || 0;
-
-        function updatePlayButton() {
-            const now = new Date();
-            const resetTime = new Date();
-            resetTime.setHours(12, 0, 0, 0); // Reset at noon
-
-            if (lastPlayed && new Date(lastPlayed) < resetTime && playsToday >= maxPlaysPerDay) {
-                document.getElementById('playButton').disabled = true;
-                document.getElementById('playButton').innerText = 'Play Limit Reached. Try Again Later.';
-            } else {
-                document.getElementById('playButton').disabled = false;
-                document.getElementById('playButton').innerText = 'Play';
-            }
-
-            // Update the plays available display
-            document.getElementById('playsAvailable').innerText = `${maxPlaysPerDay - playsToday}/${maxPlaysPerDay}`;
-        }
-
-        document.getElementById('playButton').addEventListener('click', () => {
-            const now = new Date();
-            if (playsToday < maxPlaysPerDay) {
-                localStorage.setItem('lastPlayed', now.toISOString());
-                playsToday++;
-                localStorage.setItem('playsToday', playsToday);
-                updatePlayButton(); // Update button state and plays available
-                alert('Game started!'); // Replace with your game logic
-            } else {
-                alert('You have reached the maximum number of plays for today.');
-            }
-        });
-
-        updatePlayButton(); // Initialize the button state
-
-        function startTask(taskPoints, redirectUrl, taskId) {
-            // Get the selected button
-            const taskButton = document.getElementById(taskId);
-
-            // Disable button and show timer
-            taskButton.classList.add('disabled');
-            taskButton.style.pointerEvents = "none";
-            taskButton.innerHTML = `Wait 10 seconds ...`;
-
-            // Start timer
-            let seconds = 10;
-            const interval = setInterval(() => {
-                seconds -= 1;
-                taskButton.innerHTML = `Wait ${seconds} seconds ...`;
-                
-                // When the timer ends
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    points += taskPoints; // Add points
-                    document.getElementById('counter').innerHTML = points; // Update counter
-
-                    // Save points in localStorage
-                    localStorage.setItem('points', points);
-
-                    // Update task status
-                    taskButton.innerHTML = `Task Completed - ${taskPoints} Coin Added`;
-
-                    // Save task state in localStorage
-                    savedTasks[taskId] = { completed: true, points: taskPoints };
-                    localStorage.setItem('tasksStatus', JSON.stringify(savedTasks));
-                }
-            }, 1000);
-        }
-
-        function submitCode() {
-            const codeInput = document.getElementById('codeInput').value;
-            const validCodes = {
-                'CODE123': 100,  // Example code and points
-                'CODE456': 100,  // Another example
-                'CODE789': 100,  // Another example
-                'CODE101112': 300,  // Another example
-                'CODE1012': 300,  // Another example
-                'CODE01112': 300,  // Another example
-                'COE101112': 300,  // Another example
-            };
-
-            if (validCodes[codeInput]) {
-                // Check if the code has already been used
-                if (usedCodes[codeInput]) {
-                    alert('You have already used this code.');
-                    return;
-                }
-
-                points += validCodes[codeInput]; // Add points based on the code
-                document.getElementById('counter').innerHTML = points; // Update counter
-                localStorage.setItem('points', points); // Save points in localStorage
-
-                // Mark the code as used
-                usedCodes[codeInput] = true;
-                localStorage.setItem('usedCodes', JSON.stringify(usedCodes));
-
-                alert(`Code redeemed! You've earned ${validCodes[codeInput]} points.`);
-                document.getElementById('codeInput').value = ''; // Clear input field
-            } else {
-                alert('Invalid code.');
-            }
-        }
-    </script>
+<script>
+    document.getElementById('playButton').addEventListener('click', () => {
+        // نقل المستخدم إلى صفحة اللعبة
+        window.location.href = 'game.html';
+    });
+</script>
 
 </body>
 </html>
